@@ -1,6 +1,8 @@
 package com.example.produktapi.controller;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -47,6 +49,17 @@ class ProductControllerTest {
         .then()
                 .statusCode(200);
 
+    }
+
+    @Test
+    void verify_getProductById()
+    {
+        given()
+                .contentType("application/json")
+       .when()
+                .get("http://localhost:" +port+ "/products"+"/{id}", 1)
+       .then()
+                .body("id", equalTo(1));
     }
 
     @Test
