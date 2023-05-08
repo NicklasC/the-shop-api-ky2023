@@ -5,3 +5,4 @@
 [Daniel](https://github.com/danielkiths)
 [Nicklas](https://github.com/NicklasC)
 [Priyanka](https://github.com/pritut92)
+[Jim](https://github.com/JimWAGTE)
