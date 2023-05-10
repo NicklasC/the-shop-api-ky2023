@@ -71,7 +71,29 @@ class ProductControllerTest {
                 .get("http://localhost:" +port+"/products"+"/categories"+"/electronics")
         .then()
                 .statusCode(200);
+    }
 
+    // Author: Camilla
+    @Test
+    void verify_getProductByTitle()
+    {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:"+port+"/products")
+                .then()
+                .body("title", hasItems("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
+    }
 
+    // Author: Camilla
+    @Test
+    void test_deleteProductById()
+    {
+        given()
+                .contentType("application/json")
+                .when()
+                .delete("http://localhost:" +port+"/products"+"/1")
+                .then()
+                .statusCode(405);
     }
 }
