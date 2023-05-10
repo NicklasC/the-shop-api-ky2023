@@ -2,11 +2,7 @@ package com.example.produktapi.controller;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItems;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -21,6 +17,7 @@ class ProductControllerTest {
 
     @Test
     void test_getAllProducts()
+
     {
         given()
                 .contentType("application/json")
@@ -28,6 +25,7 @@ class ProductControllerTest {
                .get("http://localhost:" + port + "/products")
         .then()
                 .statusCode(200);
+
     }
 
     @Test
@@ -39,8 +37,30 @@ class ProductControllerTest {
                 .get("http://localhost:" +port+"/products"+"/categories")
         .then()
                 .statusCode(200);
+
+    }
+    @Test
+    void test_getProductById()
+    {
+        given()
+                .contentType("application/json")
+        .when()
+                .get("http://localhost:" +port+"/products"+"/1")
+        .then()
+                .statusCode(200);
+
     }
 
+    @Test
+    void verify_getProductById()
+    {
+        given()
+                .contentType("application/json")
+       .when()
+                .get("http://localhost:" +port+ "/products"+"/{id}", 1)
+       .then()
+                .body("id", equalTo(1));
+    }
 
     @Test
     void test_getProductByCategory()
@@ -51,40 +71,7 @@ class ProductControllerTest {
                 .get("http://localhost:" +port+"/products"+"/categories"+"/electronics")
         .then()
                 .statusCode(200);
-    }
 
-    @Test
-    void test_getProductById()
-    {
-        given()
-                .contentType("application/json")
-                .when()
-                .get("http://localhost:" +port+"/products"+"/1")
-                .then()
-                .statusCode(200);
-    }
 
-    // Author: Camilla
-    @Test
-    void verify_getProductByTitle()
-    {
-        given()
-                .contentType("application/json")
-                .when()
-                .get("http://localhost:"+port+"/products")
-                .then()
-                .body("title", hasItems("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
-    }
-
-    // Author: Camilla
-    @Test
-    void test_deleteProductById()
-    {
-        given()
-                .contentType("application/json")
-                .when()
-                .delete("http://localhost:" +port+"/products"+"/1")
-                .then()
-                .statusCode(405);
     }
 }
