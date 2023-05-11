@@ -2,6 +2,7 @@ package com.example.produktapi.controller;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,7 @@ class ProductControllerTest {
 
     // Author : Priyanka
     @Test
-    void test_getAllCategories()
-    {
+    void test_getAllCategories() {
         given()
                 .contentType("application/json")
                 .when()
@@ -46,8 +46,7 @@ class ProductControllerTest {
 
     // Author : Priyanka
     @Test
-    void test_getProductById()
-    {
+    void test_getProductById() {
         given()
                 .contentType("application/json")
                 .when()
@@ -65,20 +64,19 @@ class ProductControllerTest {
 
     @Test
     void verify_getProductById()
-        //Author: Jim
+    //Author: Jim
     {
         given()
                 .contentType("application/json")
-       .when()
-                .get("http://localhost:" +port+ "/products"+"/{id}", 1)
-       .then()
+                .when()
+                .get("http://localhost:" + port + "/products" + "/{id}", 1)
+                .then()
                 .body("id", equalTo(1));
     }
 
     // Author : Priyanka
     @Test
-    void test_getProductByCategory()
-    {
+    void test_getProductByCategory() {
         given()
                 .contentType("application/json")
                 .when()
@@ -86,9 +84,18 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(6));
-
-
     }
 
 
+    //Author : Daniel
+    @Test
+    void getProductsByDescription() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:" + port + "/products")
+                .then()
+                .body("description", hasItems("Fin väska me plats för dator"));
+
+    }
 }
