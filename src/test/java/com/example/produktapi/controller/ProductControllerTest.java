@@ -4,6 +4,9 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +23,6 @@ class ProductControllerTest {
     // Author : Priyanka
     @Test
     void test_getAllProducts() {
-
         given()
                 .contentType("application/json")
                 .when()
@@ -40,6 +42,20 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(4));
+    }
+
+    @Test
+    void test_getAllCategoriesList() {
+        //Author:Nicklas
+        String expectedResponse = "[\"electronics\",\"jewelery\",\"men's clothing\",\"women's clothing\"]";
+        Response response = RestAssured.given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:" + port + "/products" + "/categories")
+                .then()
+                .extract().
+                response();
+        Assertions.assertEquals(expectedResponse, response.asString());
     }
 
     // Author : Priyanka
