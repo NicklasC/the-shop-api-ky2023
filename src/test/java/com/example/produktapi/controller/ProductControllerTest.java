@@ -3,6 +3,9 @@ package com.example.produktapi.controller;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +22,6 @@ class ProductControllerTest {
     // Author : Priyanka
     @Test
     void test_getAllProducts() {
-
         given()
                 .contentType("application/json")
                 .when()
@@ -27,13 +29,11 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(20));
-
     }
 
     // Author : Priyanka
     @Test
-    void test_getAllCategories()
-    {
+    void test_getAllCategories() {
         given()
                 .contentType("application/json")
                 .when()
@@ -41,13 +41,26 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(4));
-
     }
+
+    @Test
+    void test_getAllCategoriesList() {
+        //Author:Nicklas
+        String expectedResponse = "[\"electronics\",\"jewelery\",\"men's clothing\",\"women's clothing\"]";
+        Response response = RestAssured.given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:" + port + "/products" + "/categories")
+                .then()
+                .extract().
+                response();
+        Assertions.assertEquals(expectedResponse, response.asString());
+    }
+
 
     // Author : Priyanka
     @Test
-    void test_getProductById()
-    {
+    void test_getProductById() {
         given()
                 .contentType("application/json")
                 .when()
@@ -60,25 +73,23 @@ class ProductControllerTest {
                 .body("category", Matchers.equalTo("jewelery"))
                 .body("description", Matchers.equalTo("Silver drakens återkomst. Ett måste om man vill ha den!"))
                 .body("image", Matchers.equalTo("https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"));
-
     }
 
     @Test
     void verify_getProductById()
-        //Author: Jim
+    //Author: Jim
     {
         given()
                 .contentType("application/json")
-       .when()
-                .get("http://localhost:" +port+ "/products"+"/{id}", 1)
-       .then()
+                .when()
+                .get("http://localhost:" + port + "/products" + "/{id}", 1)
+                .then()
                 .body("id", equalTo(1));
     }
 
     // Author : Priyanka
     @Test
-    void test_getProductByCategory()
-    {
+    void test_getProductByCategory() {
         given()
                 .contentType("application/json")
                 .when()
@@ -86,9 +97,5 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(6));
-
-
     }
-
-
 }
