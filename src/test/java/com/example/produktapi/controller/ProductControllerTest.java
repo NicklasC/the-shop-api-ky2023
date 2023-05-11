@@ -2,6 +2,7 @@ package com.example.produktapi.controller;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -57,7 +58,6 @@ class ProductControllerTest {
         Assertions.assertEquals(expectedResponse, response.asString());
     }
 
-
     // Author : Priyanka
     @Test
     void test_getProductById() {
@@ -97,5 +97,16 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(6));
+    }
+
+    //Author : Daniel
+    @Test
+    void getProductsByDescription() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:" + port + "/products")
+                .then()
+                .body("description", hasItems("Fin väska me plats för dator"));
     }
 }
