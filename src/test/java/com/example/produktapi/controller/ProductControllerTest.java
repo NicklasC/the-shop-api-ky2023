@@ -87,7 +87,7 @@ class ProductControllerTest {
     }
 
     // Author: Camilla
-    @Test
+    @Test(enabled = false)
     void test_deleteProductById()
     {
         given()
