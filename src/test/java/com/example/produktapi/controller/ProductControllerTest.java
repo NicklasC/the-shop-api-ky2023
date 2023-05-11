@@ -28,7 +28,6 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(20));
-
     }
 
     // Author : Priyanka
@@ -41,7 +40,6 @@ class ProductControllerTest {
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(4));
-
     }
 
     // Author : Priyanka
@@ -59,7 +57,6 @@ class ProductControllerTest {
                 .body("category", Matchers.equalTo("jewelery"))
                 .body("description", Matchers.equalTo("Silver drakens återkomst. Ett måste om man vill ha den!"))
                 .body("image", Matchers.equalTo("https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"));
-
     }
 
     @Test
@@ -86,7 +83,6 @@ class ProductControllerTest {
                 .body("$", Matchers.hasSize(6));
     }
 
-
     //Author : Daniel
     @Test
     void getProductsByDescription() {
@@ -96,6 +92,5 @@ class ProductControllerTest {
                 .get("http://localhost:" + port + "/products")
                 .then()
                 .body("description", hasItems("Fin väska me plats för dator"));
-
     }
 }
