@@ -4,8 +4,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
-import io.restassured.RestAssured;
-import org.apache.coyote.Response;
+import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,7 @@ class ProductControllerTest {
     @Test
     void test_getAllCategoriesList() {
         String expectedResponse = "[\"electronics\",\"jewelery\",\"men's clothing\",\"women's clothing\"]";
-        Response response = RestAssured.given()
+        Response response = given()
                 .contentType("application/json")
                 .when()
                 .get("http://localhost:" + port + "/products" + "/categories")
