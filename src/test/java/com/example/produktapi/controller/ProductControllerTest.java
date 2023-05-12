@@ -4,10 +4,9 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -32,7 +31,7 @@ class ProductControllerTest {
                 .body("$", Matchers.hasSize(20));
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getAllCategories() {
         given()
@@ -44,11 +43,11 @@ class ProductControllerTest {
                 .body("$", Matchers.hasSize(4));
     }
 
+    //Author: Nicklas
     @Test
     void test_getAllCategoriesList() {
-        //Author:Nicklas
         String expectedResponse = "[\"electronics\",\"jewelery\",\"men's clothing\",\"women's clothing\"]";
-        Response response = RestAssured.given()
+        Response response = given()
                 .contentType("application/json")
                 .when()
                 .get("http://localhost:" + port + "/products" + "/categories")
@@ -58,7 +57,7 @@ class ProductControllerTest {
         Assertions.assertEquals(expectedResponse, response.asString());
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getProductById() {
         given()
@@ -75,9 +74,9 @@ class ProductControllerTest {
                 .body("image", Matchers.equalTo("https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"));
     }
 
+    // Author: Jim
     @Test
     void verify_getProductById()
-    //Author: Jim
     {
         given()
                 .contentType("application/json")
@@ -87,7 +86,7 @@ class ProductControllerTest {
                 .body("id", equalTo(1));
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getProductByCategory() {
         given()
@@ -99,7 +98,19 @@ class ProductControllerTest {
                 .body("$", Matchers.hasSize(6));
     }
 
-    //Author : Daniel
+    // Author: Camilla
+    @Test
+    void verify_getProductByTitle()
+    {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:"+port+"/products")
+                .then()
+                .body("title", hasItems("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
+    }
+
+    // Author: Daniel
     @Test
     void getProductsByDescription() {
         given()
@@ -109,4 +120,5 @@ class ProductControllerTest {
                 .then()
                 .body("description", hasItems("Fin väska me plats för dator"));
     }
+
 }
