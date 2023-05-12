@@ -2,6 +2,7 @@ package com.example.produktapi.controller;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class ProductControllerTest {
     @LocalServerPort
     private Integer port;
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getAllProducts() {
 
@@ -30,7 +31,7 @@ class ProductControllerTest {
 
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getAllCategories()
     {
@@ -44,7 +45,7 @@ class ProductControllerTest {
 
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getProductById()
     {
@@ -63,9 +64,9 @@ class ProductControllerTest {
 
     }
 
+    // Author: Jim
     @Test
     void verify_getProductById()
-        //Author: Jim
     {
         given()
                 .contentType("application/json")
@@ -75,7 +76,7 @@ class ProductControllerTest {
                 .body("id", equalTo(1));
     }
 
-    // Author : Priyanka
+    // Author: Priyanka
     @Test
     void test_getProductByCategory()
     {
@@ -90,5 +91,16 @@ class ProductControllerTest {
 
     }
 
+    // Author: Camilla
+    @Test
+    void verify_getProductByTitle()
+    {
+        given()
+                .contentType("application/json")
+                .when()
+                .get("http://localhost:"+port+"/products")
+                .then()
+                .body("title", hasItems("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
+    }
 
 }
