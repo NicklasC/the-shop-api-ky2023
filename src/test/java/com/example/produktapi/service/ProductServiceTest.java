@@ -33,4 +33,15 @@ class ProductServiceTest {
                 .thenReturn(mockHatProduct);
         assertEquals(mockHatProduct, service.addProduct(mockHatProduct));
     }
+
+    // Author: Jim
+    @Test
+    void test_addProductException() {
+        Product mockProduct = mock(Product.class);
+        when(repository.save(mockProduct))
+                .thenThrow(BadRequestException.class);
+        assertThrows(BadRequestException.class, () -> {
+            service.addProduct(mockProduct);
+        });
+    }
 }
