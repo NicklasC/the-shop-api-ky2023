@@ -44,6 +44,7 @@ class ProductServiceTest {
         List<String> categoryList = service.getAllCategories();
 
         Assertions.assertEquals(2, categoryList.size());
+    }
     
     //Author: PRIYANKA
     @Test
