@@ -30,6 +30,23 @@ class ProductServiceTest {
 
     //Author: PRIYANKA
     @Test
+    public void getAllCategoriesTest() {
+        String Category1 = "kids clothing";
+        String Category2 = "beauty products";
+
+        List<String> mockCategoryList = new ArrayList<>();
+        mockCategoryList.add(Category1);
+        mockCategoryList.add(Category2);
+
+        when(repository.findAllCategories())
+                .thenReturn(mockCategoryList);
+
+        List<String> categoryList = service.getAllCategories();
+
+        Assertions.assertEquals(2, categoryList.size());
+    
+    //Author: PRIYANKA
+    @Test
     public void testGetAllProducts() {
 
         Product productA = new Product("ProductA", 110.10, "jewelery", "beautiful", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
