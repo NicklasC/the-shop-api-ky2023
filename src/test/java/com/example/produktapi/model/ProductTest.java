@@ -6,18 +6,21 @@ import org.junit.jupiter.api.Test;
 public class ProductTest {
     Product product;
 
+    // Author: Nicklas
     private Product createTestProduct() {
         Product product = new Product("Golden ring", 25.1, "jewelery", "A beautiful ring", "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg");
         product.setId(25);
         return product;
     }
 
+    // Author: Nicklas
     @Test
     public void testGetId() {
         product = createTestProduct();
         Assert.assertEquals("25", product.getId().toString());
     }
 
+    // Author: Nicklas
     @Test
     public void testSetId() {
         product = createTestProduct();
@@ -25,12 +28,14 @@ public class ProductTest {
         Assert.assertEquals("34", product.getId().toString());
     }
 
+    // Author: Nicklas
     @Test
     public void testGetTitle() {
         product = createTestProduct();
         Assert.assertEquals("Golden ring", product.getTitle());
     }
 
+    // Author: Nicklas
     @Test
     public void testSetTitle() {
         product = createTestProduct();
@@ -38,6 +43,7 @@ public class ProductTest {
         Assert.assertEquals("New test title", product.getTitle());
     }
 
+    // Author: Nicklas
     @Test
     public void testGetPrice() {
         product = createTestProduct();
@@ -48,6 +54,7 @@ public class ProductTest {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
+    // Author: Nicklas
     @Test
     public void testSetPrice() {
         product = createTestProduct();
@@ -59,12 +66,14 @@ public class ProductTest {
         Assert.assertEquals(newPrice, actualResult);
     }
 
+    // Author: Nicklas
     @Test
     public void testGetCategory() {
         product = createTestProduct();
         Assert.assertEquals("jewelery", product.getCategory());
     }
 
+    // Author: Nicklas
     @Test
     public void testSetCategory() {
         product = createTestProduct();
@@ -72,13 +81,14 @@ public class ProductTest {
         Assert.assertEquals("Test category", product.getCategory());
     }
 
-
+    // Author: Nicklas
     @Test
     public void testGetDescription() {
         product = createTestProduct();
         Assert.assertEquals("A beautiful ring", product.getDescription());
     }
 
+    // Author: Nicklas
     @Test
     public void testSetDescription() {
         product = createTestProduct();
@@ -86,18 +96,18 @@ public class ProductTest {
         Assert.assertEquals("This is a new description", product.getDescription());
     }
 
+    // Author: Nicklas
     @Test
     public void testGetImage() {
         product = createTestProduct();
         Assert.assertEquals("https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg", product.getImage());
     }
 
+    // Author: Nicklas
     @Test
     public void testSetImage() {
         product = createTestProduct();
         product.setImage("https://someurl.com/test.jpg");
         Assert.assertEquals("https://someurl.com/test.jpg", product.getImage());
     }
-
-
 }
