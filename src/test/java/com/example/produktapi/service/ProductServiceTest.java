@@ -14,11 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -105,6 +103,15 @@ class ProductServiceTest {
         Assertions.assertEquals("Watches", productList.get(1).getCategory());
     }
 
+    // Author: Jim
+    @Test
+    void test_deleteProduct() {
 
+        ProductService mockService = mock(ProductService.class);
+        doNothing().when(mockService).deleteProduct(5);
+        repository.deleteById(5);
+        verify(repository, times(1)).deleteById(5);
+
+    }
 
 }
