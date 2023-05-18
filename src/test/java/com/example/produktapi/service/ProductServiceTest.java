@@ -12,7 +12,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -83,4 +85,26 @@ class ProductServiceTest {
             service.addProduct(mockProduct);
         });
     }
+
+    // Author: Daniel
+    @Test
+    void test_getProductsByCategory() {
+        Product firstProduct = new Product("Dior Homme", 989.99, "Perfumes", "Classic Dior", "https://fimgs.net/mdimg/perfume/375x500.13015.jpg");
+        Product secondProduct = new Product("Seiko 5", 4299.99, "Watches", "Automatic", "https://media.klockgiganten.se/catalog/product/cache/074b491b7c680a360b2429f2a25e33dc/s/s/ssk001k1.jpg");
+
+        List<Product> mockProductList = new ArrayList<>(Arrays.asList(firstProduct, secondProduct));
+        mockProductList.add(firstProduct);
+        mockProductList.add(secondProduct);
+
+        when(repository.findByCategory("category"))
+                .thenReturn(mockProductList);
+
+        List<Product> productList = service.getProductsByCategory("category");
+
+        Assertions.assertEquals("Perfumes", productList.get(0).getCategory());
+        Assertions.assertEquals("Watches", productList.get(1).getCategory());
+    }
+
+
+
 }
