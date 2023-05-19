@@ -17,8 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -105,6 +104,19 @@ class ProductServiceTest {
         Assertions.assertEquals("Watches", productList.get(1).getCategory());
     }
 
+    // Author: Jim
+    @Test
+    void test_deleteProduct() {
 
+        Product mockProduct = mock(Product.class);
+        mockProduct.setId(5);
 
+        when(repository.findById(5))
+                .thenReturn(Optional.of(mockProduct));
+        doNothing().when(repository).deleteById(5);
+        service.deleteProduct(5);
+
+        verify(repository, times(1)).deleteById(5);
+
+    }
 }
