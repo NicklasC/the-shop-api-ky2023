@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -107,11 +108,15 @@ class ProductServiceTest {
     @Test
     void test_deleteProduct() {
 
-        ProductService mockService = mock(ProductService.class);
-        doNothing().when(mockService).deleteProduct(5);
-        repository.deleteById(5);
+        Product mockProduct = mock(Product.class);
+        mockProduct.setId(5);
+
+        when(repository.findById(5))
+                .thenReturn(Optional.of(mockProduct));
+        doNothing().when(repository).deleteById(5);
+        service.deleteProduct(5);
+
         verify(repository, times(1)).deleteById(5);
 
     }
-
 }
