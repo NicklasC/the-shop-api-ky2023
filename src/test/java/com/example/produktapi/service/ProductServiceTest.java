@@ -1,6 +1,7 @@
 package com.example.produktapi.service;
 
 import com.example.produktapi.exception.BadRequestException;
+import com.example.produktapi.exception.EntityNotFoundException;
 import com.example.produktapi.model.Product;
 import com.example.produktapi.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
@@ -118,5 +119,14 @@ class ProductServiceTest {
 
         verify(repository, times(1)).deleteById(5);
 
+    }
+    
+    //Author: PRIYANKA
+    @Test
+    void testDeleteProductThrowException() {
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            service.deleteProduct(35);
+        });
     }
 }
