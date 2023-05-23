@@ -6,6 +6,7 @@ import com.example.produktapi.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -28,7 +30,7 @@ class ProductServiceTest {
     @MockBean
     private ProductRepository repository;
 
-    //Author: PRIYANKA
+    // Author: Priyanka
     @Test
     public void getAllCategoriesTest() {
         String Category1 = "kids clothing";
@@ -46,7 +48,7 @@ class ProductServiceTest {
         Assertions.assertEquals(2, categoryList.size());
     }
     
-    //Author: PRIYANKA
+    // Author: Priyanka
     @Test
     public void testGetAllProducts() {
 
@@ -82,5 +84,30 @@ class ProductServiceTest {
         assertThrows(BadRequestException.class, () -> {
             service.addProduct(mockProduct);
         });
+    }
+
+    // Author: Camilla
+    @Test
+    void test_updateProduct() {
+        Product productA = new Product("ProductA", 1110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        Product productB= new Product("ProductB", 110.12, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        Product productC = new Product("ProductC", 110.13, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+
+        List<Product> mockProductList = new ArrayList<>();
+        mockProductList.add(productA);
+        mockProductList.add(productB);
+        mockProductList.add(productC);
+
+        System.out.println(productB.getTitle());
+
+        productB.setId(1);
+        productB.setTitle("New Title");
+        System.out.println(productB.getTitle());
+        System.out.println(productB.getId());
+
+        when(repository.save(productB))
+                .thenReturn(productB);
+        assertEquals(productB, service.updateProduct(productB, 1));
+
     }
 }
