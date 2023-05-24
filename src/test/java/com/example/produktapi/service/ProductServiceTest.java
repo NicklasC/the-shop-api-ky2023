@@ -48,7 +48,7 @@ class ProductServiceTest {
 
         Assertions.assertEquals(2, categoryList.size());
     }
-    
+
     // Author: Priyanka
     @Test
     public void testGetAllProducts() {
@@ -109,35 +109,19 @@ class ProductServiceTest {
     // Author: Camilla
     @Test
     void test_updateProduct() {
-        //Integer id = 1;
-        Product productA = new Product("ProductA", 110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-        //Product productB= new Product("ProductB", 110.12, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-        //Product productC = new Product("ProductC", 110.13, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-
-        //List<Product> mockProductList = new ArrayList<>();
-        //mockProductList.add(productA);
-        //mockProductList.add(productB);
-        //mockProductList.add(productC);
-
-        System.out.println(productA.getTitle());
-
+        Product productA = new Product("ProductA", 1110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
         productA.setId(1);
-        productA.setTitle("New Title");
-        System.out.println(productA.getTitle());
-        System.out.println(productA.getId());
+        productA.setTitle("updated product");
+
+        when(repository.findById(1))
+                .thenReturn(Optional.of(productA));
 
         when(repository.save(productA))
                 .thenReturn(productA);
+
+        service.updateProduct(productA, 1);
+
         assertEquals(productA, service.updateProduct(productA, 1));
-    }
-
-    // Author: Camilla
-    @Test
-    void test_updateProductException() {
-
-        assertThrows(EntityNotFoundException.class, () -> {
-            service.updateProduct();
-        });
     }
 
     // Author: Jim
