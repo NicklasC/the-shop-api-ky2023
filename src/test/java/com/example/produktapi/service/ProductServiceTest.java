@@ -129,4 +129,15 @@ class ProductServiceTest {
             service.deleteProduct(35);
         });
     }
+    //Author: Daniel
+    @Test
+    void test_getProductById() {
+        Product firstMockProduct = new Product("Dior Homme", 989.99, "Perfumes", "Classic Dior", "https://fimgs.net/mdimg/perfume/375x500.13015.jpg");
+        firstMockProduct.setId(1);
+
+        when(repository.findById(1))
+                .thenReturn(Optional.of(firstMockProduct));
+
+        Assertions.assertEquals(1, firstMockProduct.getId());
+    }
 }
