@@ -109,26 +109,35 @@ class ProductServiceTest {
     // Author: Camilla
     @Test
     void test_updateProduct() {
-        Product productA = new Product("ProductA", 1110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-        Product productB= new Product("ProductB", 110.12, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
-        Product productC = new Product("ProductC", 110.13, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        //Integer id = 1;
+        Product productA = new Product("ProductA", 110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        //Product productB= new Product("ProductB", 110.12, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        //Product productC = new Product("ProductC", 110.13, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
 
-        List<Product> mockProductList = new ArrayList<>();
-        mockProductList.add(productA);
-        mockProductList.add(productB);
-        mockProductList.add(productC);
+        //List<Product> mockProductList = new ArrayList<>();
+        //mockProductList.add(productA);
+        //mockProductList.add(productB);
+        //mockProductList.add(productC);
 
-        System.out.println(productB.getTitle());
+        System.out.println(productA.getTitle());
 
-        productB.setId(1);
-        productB.setTitle("New Title");
-        System.out.println(productB.getTitle());
-        System.out.println(productB.getId());
+        productA.setId(1);
+        productA.setTitle("New Title");
+        System.out.println(productA.getTitle());
+        System.out.println(productA.getId());
 
-        when(repository.save(productB))
-                .thenReturn(productB);
-        assertEquals(productB, service.updateProduct(productB, 1));
+        when(repository.save(productA))
+                .thenReturn(productA);
+        assertEquals(productA, service.updateProduct(productA, 1));
+    }
 
+    // Author: Camilla
+    @Test
+    void test_updateProductException() {
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            service.updateProduct();
+        });
     }
 
     // Author: Jim
