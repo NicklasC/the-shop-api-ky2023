@@ -105,6 +105,17 @@ class ProductServiceTest {
         Assertions.assertEquals("Watches", productList.get(1).getCategory());
     }
 
+    // Author: Camilla
+    @Test
+    void test_updateProductException() {
+        Product productA = mock(Product.class);
+        when(repository.save(productA))
+                .thenThrow(BadRequestException.class);
+        assertThrows(EntityNotFoundException.class, () -> {
+            service.updateProduct(productA, 1);
+        });
+    }
+
     // Author: Jim
     @Test
     void test_deleteProduct() {
@@ -118,7 +129,6 @@ class ProductServiceTest {
         service.deleteProduct(5);
 
         verify(repository, times(1)).deleteById(5);
-
     }
     
     //Author: PRIYANKA
