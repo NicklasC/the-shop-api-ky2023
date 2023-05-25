@@ -100,7 +100,7 @@ class ProductControllerTest {
 
     // Author: Camilla
     @Test
-    void verify_getProductByTitle()
+    void getProductByTitle()
     {
         given()
                 .contentType("application/json")

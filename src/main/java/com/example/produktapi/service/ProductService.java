@@ -57,7 +57,7 @@ public class ProductService {
 
         Optional<Product> product = productRepository.findById(id);
         if (product.isEmpty()) {
-             throw new EntityNotFoundException(id);
+            throw new EntityNotFoundException(id);
         }
         return productRepository.save(product.get());
     }

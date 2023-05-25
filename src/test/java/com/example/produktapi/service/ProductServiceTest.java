@@ -7,6 +7,7 @@ import com.example.produktapi.repository.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,7 +31,7 @@ class ProductServiceTest {
     @MockBean
     private ProductRepository repository;
 
-    //Author: PRIYANKA
+    // Author: Priyanka
     @Test
     public void getAllCategoriesTest() {
         String Category1 = "kids clothing";
@@ -47,8 +48,8 @@ class ProductServiceTest {
 
         Assertions.assertEquals(2, categoryList.size());
     }
-    
-    //Author: PRIYANKA
+
+    // Author: Priyanka
     @Test
     public void testGetAllProducts() {
 
@@ -64,26 +65,6 @@ class ProductServiceTest {
 
         Assertions.assertEquals(1, productList.size());
         Assertions.assertEquals("ProductA", productList.get(0).getTitle());
-    }
-
-    // Author: Jim
-    @Test
-    void test_addProduct() {
-        Product mockHatProduct = new Product("Green hat", 10.0, "Hats", "A green hat", "http://imagelink");
-        when(repository.save(mockHatProduct))
-                .thenReturn(mockHatProduct);
-        assertEquals(mockHatProduct, service.addProduct(mockHatProduct));
-    }
-
-    // Author: Jim
-    @Test
-    void test_addProductException() {
-        Product mockProduct = mock(Product.class);
-        when(repository.save(mockProduct))
-                .thenThrow(BadRequestException.class);
-        assertThrows(BadRequestException.class, () -> {
-            service.addProduct(mockProduct);
-        });
     }
 
     // Author: Daniel
@@ -107,6 +88,44 @@ class ProductServiceTest {
 
     // Author: Jim
     @Test
+    void test_addProduct() {
+        Product mockHatProduct = new Product("Green hat", 10.0, "Hats", "A green hat", "http://imagelink");
+        when(repository.save(mockHatProduct))
+                .thenReturn(mockHatProduct);
+        assertEquals(mockHatProduct, service.addProduct(mockHatProduct));
+    }
+
+    // Author: Jim
+    @Test
+    void test_addProductException() {
+        Product mockProduct = mock(Product.class);
+        when(repository.save(mockProduct))
+                .thenThrow(BadRequestException.class);
+        assertThrows(BadRequestException.class, () -> {
+            service.addProduct(mockProduct);
+        });
+    }
+
+    // Author: Camilla
+    @Test
+    void test_updateProduct() {
+        Product productA = new Product("ProductA", 1110.1, "electronics", "lorem ipsum set", "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg");
+        productA.setId(1);
+        productA.setTitle("updated product");
+
+        when(repository.findById(1))
+                .thenReturn(Optional.of(productA));
+
+        when(repository.save(productA))
+                .thenReturn(productA);
+
+        service.updateProduct(productA, 1);
+
+        assertEquals(productA, service.updateProduct(productA, 1));
+    }
+
+    // Author: Jim
+    @Test
     void test_deleteProduct() {
 
         Product mockProduct = mock(Product.class);
@@ -120,8 +139,8 @@ class ProductServiceTest {
         verify(repository, times(1)).deleteById(5);
 
     }
-    
-    //Author: PRIYANKA
+
+    // Author: Priyanka
     @Test
     void testDeleteProductThrowException() {
 
