@@ -16,16 +16,13 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 )
 class ProductControllerTest {
 
-    @LocalServerPort
-    private Integer port;
-
     // Author: Priyanka
     @Test
     void test_getAllProducts() {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products")
+                .get("https://team-2-shop.herokuapp.com/products")
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(20));
@@ -37,7 +34,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/categories")
+                .get("https://team-2-shop.herokuapp.com/products" + "/categories")
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(4));
@@ -50,7 +47,7 @@ class ProductControllerTest {
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/categories")
+                .get("https://team-2-shop.herokuapp.com/products" + "/categories")
                 .then()
                 .extract().
                 response();
@@ -63,7 +60,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/5")
+                .get("https://team-2-shop.herokuapp.com/products" + "/5")
                 .then()
                 .statusCode(200)
                 .body("id", Matchers.equalTo(5))
@@ -81,7 +78,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/{id}", 1)
+                .get("https://team-2-shop.herokuapp.com/products" + "/{id}", 1)
                 .then()
                 .body("id", equalTo(1));
     }
@@ -92,7 +89,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/categories" + "/electronics")
+                .get("https://team-2-shop.herokuapp.com/products" + "/categories" + "/electronics")
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasSize(6));
@@ -105,7 +102,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:"+port+"/products")
+                .get("https://team-2-shop.herokuapp.com/products")
                 .then()
                 .body("title", hasItems("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
     }
@@ -116,7 +113,7 @@ class ProductControllerTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products")
+                .get("https://team-2-shop.herokuapp.com/products")
                 .then()
                 .body("description", hasItems("Fin väska me plats för dator"));
     }

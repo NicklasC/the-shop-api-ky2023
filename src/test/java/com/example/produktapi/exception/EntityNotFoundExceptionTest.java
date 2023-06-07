@@ -25,7 +25,7 @@ public class EntityNotFoundExceptionTest {
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/" + expectedProductId)
+                .get("https://team-2-shop.herokuapp.com/products" + "/" + expectedProductId)
                 .then()
                 .extract().
                 response();
@@ -39,7 +39,7 @@ public class EntityNotFoundExceptionTest {
         Response response = given()
                 .contentType("application/json")
                 .when()
-                .get("http://localhost:" + port + "/products" + "/ghghh")
+                .get("https://team-2-shop.herokuapp.com/products" + "/ghghh")
                 .then()
                 .extract().
                 response();
